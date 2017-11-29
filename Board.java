@@ -84,5 +84,4 @@ public class Board implements ISearchable<Point> {
         }
         return true;
     }
-
 }

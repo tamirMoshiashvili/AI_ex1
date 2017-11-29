@@ -5,14 +5,13 @@ public class BoardFactory {
 
     /**
      * create a board from a string.
-     * @param len length (width = height).
+     *
+     * @param len      length (width = height).
      * @param boardStr string that represents the matrix.
      * @return board object.
      */
-    public static Board toBoard(int len, String boardStr){
-        boardStr = boardStr.replace("\n", "");
-
-        // convert te string to matrix
+    public static Board toBoard(int len, String boardStr) {
+        // convert the string to matrix
         char[][] matrix = new char[len][len];
         for (int i = 0; i < len; i++) {
             for (int j = 0; j < len; j++) {

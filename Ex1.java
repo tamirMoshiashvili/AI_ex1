@@ -1,3 +1,5 @@
+import java.io.*;
+
 /**
  * main class to run the program.
  */
@@ -8,6 +10,24 @@ public class Ex1 {
      * @param args
      */
     public static void main(String[] args){
-        System.out.println("hello");
+        String filename = "input.txt";
+        try {
+            // read input file
+            BufferedReader reader = new BufferedReader(new FileReader(new File(filename)));
+            String algoName = reader.readLine();
+            int len = Integer.parseInt(reader.readLine());
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while((line = reader.readLine()) != null){
+                sb.append(line);
+            }
+            reader.close();
+
+            // search
+            ISearchable<Point> board = BoardFactory.toBoard(len, sb.toString());
+        } catch (IOException e) {
+            System.out.println("Error in input file");
+            e.printStackTrace();
+        }
     }
 }

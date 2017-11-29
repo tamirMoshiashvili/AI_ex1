@@ -132,4 +132,56 @@ public class Board implements ISearchable<Point> {
         }
         return true;
     }
+
+    @Override
+    public int getLen() {
+        return this.len;
+    }
+
+    @Override
+    public double getCost(State<Point> from, State<Point> to) {
+        double cost;
+        Point toPoint = to.getData();
+        int x = toPoint.getX(), y = toPoint.getY();
+        char square = this.matrix[x][y];
+        switch (square) {
+            case 'R':
+                cost = 1;
+                break;
+            case 'D':
+                cost = 3;
+                break;
+            case 'H':
+                cost = 10;
+                break;
+            default:
+                cost = 0;
+        }
+        return cost;
+    }
+
+    @Override
+    public int getOperatorOrder(String op) {
+        int order = 0;
+
+        if (op.equals("R")) {
+            return 8;
+        } else if (op.equals("RD")) {
+            return 7;
+        } else if (op.equals("D")) {
+            return 6;
+        } else if (op.equals("LD")) {
+            return 5;
+        } else if (op.equals("L")) {
+            return 4;
+        } else if (op.equals("LU")) {
+            return 3;
+        } else if (op.equals("U")) {
+            return 2;
+        } else if (op.equals("RU")) {
+            return 1;
+        }
+
+        return order;
+    }
 }

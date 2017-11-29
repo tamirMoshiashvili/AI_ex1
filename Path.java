@@ -51,7 +51,7 @@ public class Path<T extends Descriptable<T>> {
         }
 
         // write to file
-        writePathTo(filename, stringBuilder);
+        writeResult(filename, stringBuilder);
     }
 
     /**
@@ -60,7 +60,7 @@ public class Path<T extends Descriptable<T>> {
      * @param filename      name of the file.
      * @param stringBuilder holds the string to write.
      */
-    private static void writePathTo(String filename, StringBuilder stringBuilder) {
+    private static void writeResult(String filename, StringBuilder stringBuilder) {
         try (Writer writer = new BufferedWriter(
                 new OutputStreamWriter(new FileOutputStream(filename), "utf-8"))) {
             writer.write(stringBuilder.toString());

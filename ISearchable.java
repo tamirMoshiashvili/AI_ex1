@@ -26,4 +26,28 @@ public interface ISearchable<T extends Descriptable<T>> {
      * @return list of states.
      */
     List<State<T>> getSuccessors(State<T> state);
+
+    /**
+     * get the length of the problem.
+     *
+     * @return int.
+     */
+    int getLen();
+
+    /**
+     * get the cost to move between the given states.
+     *
+     * @param from source state.
+     * @param to   end state.
+     * @return cost.
+     */
+    double getCost(State<T> from, State<T> to);
+
+    /**
+     * get the order of the given operator.
+     *
+     * @param op operator.
+     * @return int.
+     */
+    int getOperatorOrder(String op);
 }

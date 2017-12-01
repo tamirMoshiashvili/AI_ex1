@@ -133,9 +133,9 @@ public class Board implements ISearchable<Point> {
     }
 
     @Override
-    public double getCost(State<Point> dest) {
+    public int getCost(State<Point> dest) {
         // TODO check if can omit the 'from' object from this function
-        double cost;
+        int cost;
         Point toPoint = dest.getData();
         int x = toPoint.getX(), y = toPoint.getY();
         char square = this.matrix[x][y];

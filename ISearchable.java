@@ -40,5 +40,5 @@ public interface ISearchable<T extends Descriptable<T>> {
      * @param dest   end state.
      * @return cost.
      */
-    double getCost(State<T> dest);
+    int getCost(State<T> dest);
 }

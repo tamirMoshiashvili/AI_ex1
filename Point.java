@@ -85,4 +85,16 @@ public class Point implements Descriptable<Point> {
         }
         return false;
     }
+
+    /**
+     * calculate the distance between this point to the other point.
+     *
+     * @param other other point.
+     * @return distance.
+     */
+    public double distanceTo(Point other) {
+        int x1 = this.x, y1 = this.y;
+        int x2 = other.getX(), y2 = other.getY();
+        return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+    }
 }

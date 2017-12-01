@@ -36,11 +36,20 @@ public class State<T extends Descriptable<T>> implements Descriptable<State<T>> 
     }
 
     /**
+     * set the cost of the current state to the given value.
+     *
+     * @param value new cost.
+     */
+    public void setCost(int value) {
+        this.cost = value;
+    }
+
+    /**
      * add the given value to the current cost.
      *
      * @param value double.
      */
-    public void updateCost(double value) {
+    public void updateCost(int value) {
         this.cost += value;
     }
 
@@ -81,7 +90,7 @@ public class State<T extends Descriptable<T>> implements Descriptable<State<T>> 
      */
     @Override
     public boolean equals(Object other) {
-        if (other instanceof State){
+        if (other instanceof State) {
             State<Point> otherState = (State<Point>) other;
             return this.data.equals(otherState.getData());
         }

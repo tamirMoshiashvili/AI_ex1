@@ -72,11 +72,6 @@ public class IDSearcher implements ISearcher<Point> {
         if (depth > 0) {
             // get successors
             List<State<Point>> successors = this.searchable.getSuccessors(state);
-            // sort
-//            successors.sort((first, second) -> {
-//                double a = first.getCost(), b = second.getCost();
-//                return a < b ? -1 : a == b ? 0 : 1;
-//            });
 
             // run the algorithm
             for (State<Point> child : successors) {

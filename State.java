@@ -1,10 +1,11 @@
 /**
- * abstract state class.
+ * state class.
  */
 public class State<T extends Descriptable<T>> implements Descriptable<State<T>> {
     private T data;
     private int cost;
     private State<T> cameFrom;
+    private int depth;
 
     /**
      * constructor.
@@ -15,6 +16,25 @@ public class State<T extends Descriptable<T>> implements Descriptable<State<T>> 
         this.data = data;
         this.cost = 0;
         this.cameFrom = null;
+        this.depth = 0;
+    }
+
+    /**
+     * get the depth of this state.
+     *
+     * @return int.
+     */
+    public int getDepth() {
+        return depth;
+    }
+
+    /**
+     * set the depth to the given one.
+     *
+     * @param depth int.
+     */
+    public void setDepth(int depth) {
+        this.depth = depth;
     }
 
     /**

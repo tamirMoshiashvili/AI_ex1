@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * searcher that work with the A* algorithm.
+ * searcher that works with the A* algorithm.
  */
 public class AStarSearcher implements ISearcher<Point> {
     private List<State<Point>> openList;
@@ -73,12 +73,18 @@ public class AStarSearcher implements ISearcher<Point> {
      * @param searchable search-problem.
      */
     private void iterateOverNeighborsOf(State<Point> current, ISearchable<Point> searchable) {
+        int currDepth = current.getDepth();
+        if (currDepth + 1 > searchable.getLen()) {
+            return;
+        }
+
         // get successors
         List<State<Point>> successors = searchable.getSuccessors(current);
         for (State<Point> neighbor : successors) {
             // duplicate pruning
             if (this.openList.indexOf(neighbor) == -1) {
                 this.openList.add(neighbor);
+                neighbor.setDepth(currDepth + 1);
             }
 
             // search for better cost

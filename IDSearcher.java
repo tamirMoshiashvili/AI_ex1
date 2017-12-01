@@ -26,7 +26,7 @@ public class IDSearcher implements ISearcher<Point> {
     @Override
     public Path<Point> searchPath(ISearchable<Point> searchable) {
         List<State<Point>> stateList = new ArrayList<State<Point>>();
-        double cost = 0;
+        int cost = 0;
 
         this.searchable = searchable;
         int len = searchable.getLen();
@@ -91,6 +91,7 @@ public class IDSearcher implements ISearcher<Point> {
                 }
             }
         }
+        this.openList.remove(state);
         return null;
     }
 }

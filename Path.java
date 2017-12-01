@@ -6,7 +6,7 @@ import java.util.List;
  */
 public class Path<T extends Descriptable<T>> {
     private String separator;
-    private double cost;
+    private int cost;
     private List<State<T>> stateList;
 
     /**
@@ -16,7 +16,7 @@ public class Path<T extends Descriptable<T>> {
      * @param cost      number that represents the cost of the path.
      * @param stateList list of states, which is the path.
      */
-    public Path(String separator, double cost, List<State<T>> stateList) {
+    public Path(String separator, int cost, List<State<T>> stateList) {
         this.separator = separator;
         this.cost = cost;
         this.stateList = stateList;

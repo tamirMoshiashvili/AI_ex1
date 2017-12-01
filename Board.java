@@ -21,8 +21,8 @@ public class Board implements ISearchable<Point> {
 
         // find start and goal states
         boolean startFound = false, goalFound = false;
-        for (int i = 0; i < this.len && (!goalFound && !startFound); i++) {
-            for (int j = 0; j < this.len && (!goalFound && !startFound); j++) {
+        for (int i = 0; i < this.len && (!goalFound || !startFound); i++) {
+            for (int j = 0; j < this.len && (!goalFound || !startFound); j++) {
                 if (matrix[i][j] == 'S') {
                     this.startState = new State<Point>(new Point(i, j));
                     startFound = true;

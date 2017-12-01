@@ -3,7 +3,7 @@
  */
 public class State<T extends Descriptable<T>> implements Descriptable<State<T>> {
     private T data;
-    private double cost;
+    private int cost;
     private State<T> cameFrom;
 
     /**
@@ -31,7 +31,7 @@ public class State<T extends Descriptable<T>> implements Descriptable<State<T>> 
      *
      * @return double.
      */
-    public double getCost() {
+    public int getCost() {
         return this.cost;
     }
 
@@ -81,6 +81,10 @@ public class State<T extends Descriptable<T>> implements Descriptable<State<T>> 
      */
     @Override
     public boolean equals(Object other) {
-        return this.data.equals(other);
+        if (other instanceof State){
+            State<Point> otherState = (State<Point>) other;
+            return this.data.equals(otherState.getData());
+        }
+        return false;
     }
 }

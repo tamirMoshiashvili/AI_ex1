@@ -35,19 +35,10 @@ public interface ISearchable<T extends Descriptable<T>> {
     int getLen();
 
     /**
-     * get the cost to move between the given states.
+     * get the cost to move to the given state.
      *
-     * @param from source state.
-     * @param to   end state.
+     * @param dest   end state.
      * @return cost.
      */
-    double getCost(State<T> from, State<T> to);
-
-    /**
-     * get the order of the given operator.
-     *
-     * @param op operator.
-     * @return int.
-     */
-    int getOperatorOrder(String op);
+    double getCost(State<T> dest);
 }

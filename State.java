@@ -6,9 +6,6 @@ public class State<T extends Descriptable<T>> implements Descriptable<State<T>> 
     private double cost;
     private State<T> cameFrom;
 
-    private int creationTime;
-    private int operatorOrder;
-
     /**
      * constructor.
      *
@@ -18,9 +15,6 @@ public class State<T extends Descriptable<T>> implements Descriptable<State<T>> 
         this.data = data;
         this.cost = 0;
         this.cameFrom = null;
-
-        this.creationTime = 0;
-        this.operatorOrder = 0;
     }
 
     /**
@@ -88,41 +82,5 @@ public class State<T extends Descriptable<T>> implements Descriptable<State<T>> 
     @Override
     public boolean equals(Object other) {
         return this.data.equals(other);
-    }
-
-    /**
-     * getter.
-     *
-     * @return creation time.
-     */
-    public int getCreationTime() {
-        return creationTime;
-    }
-
-    /**
-     * getter.
-     *
-     * @return operator order.
-     */
-    public int getOperatorOrder() {
-        return operatorOrder;
-    }
-
-    /**
-     * setter.
-     *
-     * @param creationTime int.
-     */
-    public void setCreationTime(int creationTime) {
-        this.creationTime = creationTime;
-    }
-
-    /**
-     * setter.
-     *
-     * @param operatorOrder int.
-     */
-    public void setOperatorOrder(int operatorOrder) {
-        this.operatorOrder = operatorOrder;
     }
 }

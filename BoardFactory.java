@@ -14,8 +14,9 @@ public class BoardFactory {
         // convert the string to matrix
         char[][] matrix = new char[len][len];
         for (int i = 0; i < len; i++) {
+            int i_len = i * len;
             for (int j = 0; j < len; j++) {
-                int charIndex = i * len + j;
+                int charIndex = i_len + j;
                 matrix[i][j] = boardStr.charAt(charIndex);
             }
         }

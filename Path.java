@@ -5,7 +5,7 @@ import java.util.List;
  * path that hold a list of instructions and a cost.
  */
 public class Path<T extends Descriptable<T>> {
-    String separator;
+    private String separator;
     private double cost;
     private List<State<T>> stateList;
 
@@ -43,7 +43,7 @@ public class Path<T extends Descriptable<T>> {
 
                 prev = current;
             }
-            // last instruction, without the '-' in the end
+            // last instruction, without the separator at the end
             State<T> current = this.stateList.get(listSize - 1);
             stringBuilder.append(prev.getInstructionTo(current));
 

@@ -51,68 +51,62 @@ public class Board implements ISearchable<Point> {
         Point statePoint = state.getData();
         int x = statePoint.getX(), y = statePoint.getY();
 
-        // straight squares
         Point right = new Point(x, y + 1);
         boolean r = isValid(right);
-        addStraightIfValid(successors, right, r);
+        addIfValid(successors, right, r, state);
 
         Point down = new Point(x + 1, y);
         boolean d = isValid(down);
-        addStraightIfValid(successors, down, d);
+        Point rd = new Point(x + 1, y + 1);
+        addIfValid(successors, rd, this.isDiagonalValid(rd, r, d), state);
+        addIfValid(successors, down, d, state);
 
         Point left = new Point(x, y - 1);
         boolean l = isValid(left);
-        addStraightIfValid(successors, left, l);
+        Point ld = new Point(x + 1, y - 1);
+        addIfValid(successors, ld, this.isDiagonalValid(ld, l, d), state);
+        addIfValid(successors, left, l, state);
 
         Point up = new Point(x - 1, y);
         boolean u = isValid(up);
-        addStraightIfValid(successors, up, u);
-
-        // diagonal squares
-        Point rd = new Point(x + 1, y + 1);
-        this.addDiagonalIfValid(successors, rd, r, d);
-
-        Point ld = new Point(x + 1, y - 1);
-        this.addDiagonalIfValid(successors, ld, l, d);
-
         Point lu = new Point(x - 1, y - 1);
-        this.addDiagonalIfValid(successors, lu, l, u);
+        addIfValid(successors, lu, this.isDiagonalValid(lu, l, u), state);
+        addIfValid(successors, up, u, state);
 
         Point ru = new Point(x - 1, y + 1);
-        this.addDiagonalIfValid(successors, ru, r, u);
+        addIfValid(successors, ru, this.isDiagonalValid(ru, r, u), state);
 
         return successors;
     }
 
     /**
-     * add a state with the given point to the list if it is valid.
-     * the point will be in straight direction from the source point,
-     * i.e. only left, right, up or down point.
+     * add the state with the given point into the list if it is valid.
      *
-     * @param list    list to add the object to.
-     * @param point   point.
+     * @param list    list of states.
+     * @param point   point of neighbor.
      * @param isValid bool.
+     * @param parent  parent state.
      */
-    private static void addStraightIfValid(List<State<Point>> list, Point point, boolean isValid) {
+    private void addIfValid(List<State<Point>> list, Point point,
+                                   boolean isValid, State<Point> parent) {
         if (isValid) {
-            list.add(new State<Point>(point));
+            State<Point> state = new State<Point>(point);
+            state.updateCost(parent.getCost() + this.getCost(state));
+            state.setCameFrom(parent);
+            list.add(state);
         }
     }
 
     /**
-     * add a state with the given point to the list if it is valid.
-     * the point will be in diagonal direction from the source point,
-     * i.e. only left-up, left-down, right-up or right-down point.
+     * check if the given point is a valid diagonal neighbor.
      *
-     * @param list  list to add the object to.
      * @param point point.
-     * @param b1    boolean that say if the right or left direction is valid.
-     * @param b2    boolean that say if the up or down direction is valid.
+     * @param b1    is first straight neighbor is valid.
+     * @param b2    is second straight neighbor is valid.
+     * @return true if it valid, false otherwise.
      */
-    private void addDiagonalIfValid(List<State<Point>> list, Point point, boolean b1, boolean b2) {
-        if (isValid(point) && b1 && b2) {
-            list.add(new State<Point>(point));
-        }
+    private boolean isDiagonalValid(Point point, boolean b1, boolean b2) {
+        return isValid(point) && b1 && b2;
     }
 
     /**
@@ -135,13 +129,14 @@ public class Board implements ISearchable<Point> {
 
     @Override
     public int getLen() {
-        return this.len;
+        return this.len * this.len;
     }
 
     @Override
-    public double getCost(State<Point> from, State<Point> to) {
+    public double getCost(State<Point> dest) {
+        // TODO check if can omit the 'from' object from this function
         double cost;
-        Point toPoint = to.getData();
+        Point toPoint = dest.getData();
         int x = toPoint.getX(), y = toPoint.getY();
         char square = this.matrix[x][y];
         switch (square) {
@@ -158,30 +153,5 @@ public class Board implements ISearchable<Point> {
                 cost = 0;
         }
         return cost;
-    }
-
-    @Override
-    public int getOperatorOrder(String op) {
-        int order = 0;
-
-        if (op.equals("R")) {
-            return 8;
-        } else if (op.equals("RD")) {
-            return 7;
-        } else if (op.equals("D")) {
-            return 6;
-        } else if (op.equals("LD")) {
-            return 5;
-        } else if (op.equals("L")) {
-            return 4;
-        } else if (op.equals("LU")) {
-            return 3;
-        } else if (op.equals("U")) {
-            return 2;
-        } else if (op.equals("RU")) {
-            return 1;
-        }
-
-        return order;
     }
 }

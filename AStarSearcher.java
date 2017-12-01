@@ -48,6 +48,7 @@ public class AStarSearcher implements ISearcher<Point> {
             if (current.equals(goal)) {
                 // found a match
                 found = current;
+                cost = found.getCost();
                 break;
             }
             this.openList.remove(current);
@@ -82,7 +83,7 @@ public class AStarSearcher implements ISearcher<Point> {
 
             // search for better cost
             int newCost = current.getCost() + searchable.getCost(neighbor);
-            if (newCost >= neighbor.getCost()) {
+            if (newCost > neighbor.getCost()) {
                 continue;
             }
 

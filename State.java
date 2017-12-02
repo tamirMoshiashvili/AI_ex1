@@ -6,6 +6,7 @@ public class State<T extends Descriptable<T>> implements Descriptable<State<T>> 
     private int cost;
     private State<T> cameFrom;
     private int depth;
+    private int discoverTime;
 
     /**
      * constructor.
@@ -17,6 +18,25 @@ public class State<T extends Descriptable<T>> implements Descriptable<State<T>> 
         this.cost = 0;
         this.cameFrom = null;
         this.depth = 0;
+        this.discoverTime = 0;
+    }
+
+    /**
+     * get the discover time of this state.
+     *
+     * @return int.
+     */
+    public int getDiscoverTime() {
+        return discoverTime;
+    }
+
+    /**
+     * set the discover time.
+     *
+     * @param discoverTime int.
+     */
+    public void setDiscoverTime(int discoverTime) {
+        this.discoverTime = discoverTime;
     }
 
     /**

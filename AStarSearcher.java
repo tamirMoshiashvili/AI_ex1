@@ -25,7 +25,9 @@ public class AStarSearcher implements ISearcher<Point> {
         this.openList.sort((first, second) -> {
             double a = first.getCost() + first.getData().distanceTo(goalPoint);
             double b = second.getCost() + second.getData().distanceTo(goalPoint);
-            return a < b ? -1 : a == b ? 0 : 1;
+            int time1 = first.getDiscoverTime();
+            int time2 = second.getDiscoverTime();
+            return a < b ? -1 : a > b ? 1 : time1 < time2 ? -1 : time1 > time2 ? 1 : 0;
         });
     }
 
@@ -33,6 +35,7 @@ public class AStarSearcher implements ISearcher<Point> {
     public Path<Point> searchPath(ISearchable<Point> searchable) {
         List<State<Point>> stateList = new ArrayList<State<Point>>();
         int cost = 0;
+        int discoverTime = 1;
 
         // init
         State<Point> root = searchable.getStartState();
@@ -53,7 +56,8 @@ public class AStarSearcher implements ISearcher<Point> {
             }
             this.openList.remove(current);
 
-            iterateOverNeighborsOf(current, searchable);
+            iterateOverNeighborsOf(current, searchable, discoverTime);
+            ++discoverTime;
         }
 
         // add the states of the solution to the list
@@ -69,10 +73,12 @@ public class AStarSearcher implements ISearcher<Point> {
     /**
      * iterate over the successors of the curretn state in the given searchable.
      *
-     * @param current    state.
-     * @param searchable search-problem.
+     * @param current      state.
+     * @param searchable   search-problem.
+     * @param discoverTime discover time of the new states.
      */
-    private void iterateOverNeighborsOf(State<Point> current, ISearchable<Point> searchable) {
+    private void iterateOverNeighborsOf(State<Point> current, ISearchable<Point> searchable,
+                                        int discoverTime) {
         int currDepth = current.getDepth();
         if (currDepth + 1 > searchable.getLen()) {
             return;
@@ -84,7 +90,6 @@ public class AStarSearcher implements ISearcher<Point> {
             // duplicate pruning
             if (this.openList.indexOf(neighbor) == -1) {
                 this.openList.add(neighbor);
-                neighbor.setDepth(currDepth + 1);
             }
 
             // search for better cost
@@ -94,6 +99,8 @@ public class AStarSearcher implements ISearcher<Point> {
             }
 
             // this path is better
+            neighbor.setDepth(currDepth + 1);
+            neighbor.setDiscoverTime(discoverTime);
             neighbor.setCameFrom(current);
             neighbor.setCost(newCost);
         }
